@@ -135,3 +135,37 @@ HTML 요소에게 '이름'을 주는 방법은 두 가지가 있다.
 
 (미리 배우는 우선 순위: html코드의 태그 속에 직접적으로 스타일을 선언하는 inline style이 가장 우선순위가 높고 id, class, tag 순서대로 우선순위가 결정된다.)
 
+
+
+
+
+## 8. `<div>` 태그
+
+```html
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>My Favorite Movies</title>
+        <meta charset="utf-8">
+        <style>
+            h1 {
+                text-align: center;
+                margin-top: 75px;
+                margin-bottom: 75px;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <h1>My Favorite Movies</h1>
+        
+        <h2 class="title">
+            Eternal Sunshine of the Spotless Mind
+        </h2>
+        
+    </body>
+</html>
+```
+
+묶어주고 싶은 요소를 `<div>` 태그로 감싸준다.
