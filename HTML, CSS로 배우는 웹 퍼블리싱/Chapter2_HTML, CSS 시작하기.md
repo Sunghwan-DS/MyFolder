@@ -30,7 +30,7 @@
 
 ![image-20200226074614972](C:\Users\전재인\AppData\Roaming\Typora\typora-user-images\image-20200226074614972.png)
 
-## 4. <b>태그, <i>태그 정리
+## 4. `<b>`태그, `<i>`태그 정리
 
 ```html
 <p>
@@ -41,9 +41,9 @@
 </p>
 ```
 
-bold <b>와 비슷한 효과로 strong <strong> 이 있는데 bold는 글씨만 굵게 만들지만 strong은 실제로 강조 표시를 남겨 프로그램을 통해 이용이 가능하다.
+bold `<b>`와 비슷한 효과로 strong `<strong>` 이 있는데 bold는 글씨만 굵게 만들지만 strong은 실제로 강조 표시를 남겨 프로그램을 통해 이용이 가능하다.
 
-emphasized<em> 또한 italic<i>와 글씨를 기울이는 점에서는 같지만 emphasized 또한 글씨에 강조 표시를 남겨 기능적으로 이용이 가능하다.
+emphasized`<em>` 또한 italic`<i>`와 글씨를 기울이는 점에서는 같지만 emphasized 또한 글씨에 강조 표시를 남겨 기능적으로 이용이 가능하다.
 
 
 
@@ -164,6 +164,8 @@ p i {	/* p태그 안에 있는 i태그 */
 
 
 
+
+
 ## 8. 텍스트 꾸미기 연습
 
 ```html
@@ -250,9 +252,9 @@ html 태그: 태그 사이에 있는 내용이 html이라는 뜻
 
 ## 11. 옵셔널 태그, 꼭 써야 할까?
 
-<html>, <head>, <body> 태그 없이도 별 문제없이 작동하였다. 그 이유는 이 세 태그는 사실 필수가 아니라 '옵셔널 태그'이기 때문이다.
+`<html>`, `<head>`, `<body>` 태그 없이도 별 문제없이 작동하였다. 그 이유는 이 세 태그는 사실 필수가 아니라 '옵셔널 태그'이기 때문이다.
 
-위에서는 다음의 세 태그가 정리(organization)의 목적으로 사용되었다. 요소들을 <head>와 <body>에 묶어주면 html 파일의 구조가 눈에 더 잘 들어온다고 생각하기 때문이다.
+위에서는 다음의 세 태그가 정리(organization)의 목적으로 사용되었다. 요소들을 `<head>`와 `<body>`에 묶어주면 html 파일의 구조가 눈에 더 잘 들어온다고 생각하기 때문이다.
 
 하지만 세 옵셔널 태그의 사용을 권장하지 않는 의견들도 있다. 심지어  [구글 HTML/CSS 스타일 가이드](https://google.github.io/styleguide/htmlcssguide.html#Optional_Tags)에서도 옵셔널 태그를 생략하라고 나와 있습니다.
 
@@ -264,7 +266,7 @@ html 태그: 태그 사이에 있는 내용이 html이라는 뜻
 
 ## 12. 링크
 
-하이퍼링크  =>  <a> 태그
+하이퍼링크  =>  `<a>` 태그
 
 ```html
 <a href="https://google.com">구글로 가는 링크</a>

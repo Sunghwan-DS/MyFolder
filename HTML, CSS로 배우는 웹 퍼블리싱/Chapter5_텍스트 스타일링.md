@@ -371,6 +371,8 @@ h1 {
 
 반대로 `40px`로 설정하면 'content area'보다 `19px`이 적기 때문에 위 아래로 `-9.5px`의 공간이 줄어든다.
 
+
+
 ### 코드 예시
 
 ```CSS
@@ -536,6 +538,52 @@ ctrl+f 로 한글 글꼴을 찾고 url만 복사하여 가져온다.
   <div id="fantasy">Fantasy</div>
   <div id="google">Google</div>
 </body>
+</html>
+```
+
+
+
+
+
+## 14. 폰트 파일 사용하기
+
+```CSS
+@font-face {
+    src: url("BMJUA_otf.otf");
+    font-family: "Jua";
+}
+
+p {
+    font-family: "Jua";
+}
+```
+
+
+
+
+
+## 15. span 태그
+
+```html
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Styling Text</title>
+        <meta charset="utf-8">
+        
+        <style>
+            .red {
+                color: red;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <p>
+            가나다라마바사<span class="red">아자차카</span>타파하
+        </p>
+    </body>
 </html>
 ```
 
