@@ -2,19 +2,40 @@
 
 <html>
     <head>
-        <title>Styling Text</title>
+        <title>Box Model</title>
         <meta charset="utf-8">
-        
         <style>
-            .red {
-                color: red;
+            h1 {
+                /* 테투리에 5px 두께의 빨간 박스 */
+                border: 5px solid red;
+            }
+            
+            .p1 {
+                border: 5px solid red;
+             	margin-top: 100px;
+                margin-bottom: 100px;
+                margin-left: 50px;
+            }
+            
+            .p2 {
+                border: 5px solid red;
+                padding-top: 50px;
+                padding-bottom: 50px;
+                padding-left: 50px;
+                padding-right: 50px;
             }
         </style>
     </head>
     
     <body>
-        <p>
-            가나다라마바사<span class="red">아자차카</span>타파하
+        <h1>Life is Beautiful</h1>
+        
+        <p class="p1">
+            문단1 문단1 문단1 문단1 문단1 문단1 문단1 문단1 문단1
+        </p>
+        
+        <p class="p2">
+            문단2 문단2 문단2 문단2 문단2 문단2 문단2 문단2 문단2
         </p>
     </body>
 </html>
