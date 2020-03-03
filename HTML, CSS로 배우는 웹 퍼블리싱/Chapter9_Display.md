@@ -170,16 +170,93 @@ div {
             }
             
             i {
-                display: block;
+                /* inline display는 길이 개념이 없다.
+                width: 300px;
+                height: 300px;
+                */
+                display: inline-block;
+                width: 300px;
+                height: 300px;
             }
         </style>
     </head>
     
     <body>
         Hello my <i>name</i> is young!
-        <!-- <i>를 <div> 로 바꾸면 줄이 넘어간다 -->
-        <!-- i 태그의 display를 style 태그에서 수정하면 줄이 넘어간다. -->
     </body>
 </html>
+```
+
+
+
+
+
+## 4. inline-block 정리
+
+Block 요소에게는 가로 길이와 세로 길이를 직접 설정해줄 수 있지만, inline 요소는 자동으로 설정이 된다. Inline 요소에게는 가로, 세로 길이의 개념이 없는 것이다.
+
+만약 inline 요소처럼 다른 요소들과 같은 줄에 머무르면서 block 요소처럼 가로, 세로 길이도 설정해주고 싶으면 어떻게 해야 할까? 바로 그 둘을 섞어놓은 `inline-block`을 사용하면 된다.
+
+
+
+### inline-block
+
+```CSS
+i {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  background-color: green;
+}
+```
+
+
+
+
+
+## 5. `<img>` 태그의 비밀
+
+`<img>` 태그는 사실 대체 요소(replaced element)라고 하는 특별한 요소이다. (가로 길이 설정 가능)
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Layout</title>
+        <style>
+            body {
+                margin: 0;
+            }
+            
+            /* 이미지를 엄청 큰 글자처럼 취급 */
+            img {
+                vertical-align: middle;
+            }
+            
+            .container{
+                text-align: center;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div class="container">
+            <img="Cogi.png" height="100">
+        </div>
+    </body>
+</html>
+```
+
+
+
+
+
+## 6. 다양한 링크
+
+```html
+<a href="https://google.com" target="_blank">
+    <!-- 구글로 가는 링크 -->
+	<img src="Cogi.png" width="200">
+</a>
 ```
 

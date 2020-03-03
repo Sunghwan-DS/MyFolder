@@ -573,3 +573,314 @@ p {
 
 1. border: none;
 2. border: 0;
+
+
+
+
+
+## 12. 박스 꾸미는 몇 가지 방법
+
+```html
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Box Model</title>
+        <meta charset="utf-8">
+        <style>
+            body {
+                background-color: gray;
+            }
+            
+            .p1 {
+                width: 400px;
+                border: 5px solid green;
+                padding: 50px;
+                border-radius: 50px;
+                background-color: transparent;
+            }
+            
+            .p2 {
+                width: 400px;
+                padding: 50px;
+                box-shadow: 10px 10px 50px 10px red;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <h1>Life is Beautiful</h1>
+        
+        <p class="p1">
+            문단1 문단1 문단1 문단1 문단1 문단1 문단1 문단1 문단1
+        </p>
+        
+        <p class="p2">
+            문단2 문단2 문단2 문단2 문단2 문단2 문단2 문단2 문단2
+        </p>
+    </body>
+</html>
+```
+
+
+
+
+
+## 13. 둥근 모서리
+
+`border-radius`라는 속성을 사용하면 요소의 모서리를 둥글게 만들 수 있는데, 더 큰 값을 쓸수록 더 둥글게 된다.
+
+```CSS
+.div1 {
+  border: 1px solid green;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.div2 {
+  border: 1px solid green;
+  border-radius: 30px;
+}
+```
+
+
+
+### 개별 설정
+
+그냥 `border-radius` 속성을 사용하면 모서리 네 개 모두 똑같이 둥글게 되는데, 각 모서리를 개별 설정할 수도 있다.
+
+```CSS
+h1 {
+  border: 1px solid green;
+  border-top-left-radius: 50px; /* 왼쪽 위 */
+  border-top-right-radius: 5px; /* 오른쪽 위 */
+  border-bottom-right-radius: 0px; /* 오른쪽 아래 */
+  border-bottom-left-radius: 20px; /* 왼쪽 아래 */
+}
+```
+
+
+
+
+
+## 14. 배경색
+
+### 배경색
+
+`background-color` 속성을 사용하면 배경색을 설정할 수 있다. 폰트 색을 설정할 때처럼 색 이름, RGB 코드, HEX 코드 중 하나를 입력하면 된다.
+
+```CSS
+h1 {
+  background-color: #4d9fff;
+}
+```
+
+
+
+#### 페이지 배경색
+
+페이지 전체의 배경색을 설정하고 싶으면 `body` 태그에 `background-color` 속성을 입혀주면 된다.
+
+그리고 배경색을 투명하게 두고 싶으면 `transparent` 값으로 설정해주면 되는데, 따로 설정을 해주지 않으면 `transparent`가 기본값으로 설정된다.
+
+```CSS
+body {
+  background-color: #4d9fff;
+}
+
+h1 {
+  background-color: white;
+}
+
+h2 {
+  background-color: transparent
+}
+```
+
+
+
+
+
+## 15. 그림자
+
+그림자의 위치만 설정해주면 그림자가 나타난다.
+
+```CSS
+.div1 {
+  background-color: #eeeeee;
+  width: 400px;
+  height: 300px;
+  box-shadow: 40px 10px;
+}
+```
+
+
+
+#### 그림자 색 설정
+
+따로 설정해주지 않으면 그림자는 검정색이다. 만약 다른 색으로 바꾸고 싶으면 `box-shadow`속성에 추가로 색을 써주면 된다.
+
+```CSS
+.div1 {
+  background-color: #eeeeee;
+  width: 400px;
+  height: 300px;
+  box-shadow: 40px 10px #4d9fff;
+}
+```
+
+
+
+#### 흐림 정도 (blur)
+
+`box-shadow` 속성에서 그림자가 얼마나 흐리게 나올지 설정해줄 수 있다. 가로, 세로 위치 뒤에 추가해주면 되며 기본값은 `0px`이다.
+
+```CSS
+.div1 {
+  background-color: #eeeeee;
+  width: 400px;
+  height: 300px;
+  box-shadow: 40px 10px 10px #4d9fff;
+}
+```
+
+
+
+### 그림자 크기 (spread)
+
+그림자가 얼마나 퍼질지도 설정할 수 있다. 흐림 값 이후에 써주면 된다.
+
+```CSS
+.div1 {
+  background-color: #eeeeee;
+  width: 400px;
+  height: 300px;
+  box-shadow: 40px 10px 10px 20px #4d9fff;
+}
+```
+
+
+
+
+
+## 16. box-sizing
+
+```html
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Box Model</title>
+        <meta charset="utf-8">
+        <style>
+            /* 모든 요소에 border-box 설정하는 방법
+            * {
+            	box-sizing: border-box;
+            }
+            */
+            h1 {
+                width: 300px;
+                height: 200px;
+                padding: 35px;
+                border: 5px solid red;
+                /* box-sizing 속성에 border-box를 써주면 패딩과 테두리가 포함 */
+                /* 기본 설정값: content-box */
+                box-sizing: border-box;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <h1>Life is Beautiful</h1>
+        
+        <p class="p1">
+            문단1 문단1 문단1 문단1 문단1 문단1 문단1 문단1 문단1
+        </p>
+        
+        <p class="p2">
+            문단2 문단2 문단2 문단2 문단2 문단2 문단2 문단2 문단2
+        </p>
+    </body>
+</html>
+```
+
+
+
+
+
+## 17. box-sizing 정리
+
+```CSS
+.div1 {
+  border: 10px solid red;
+  width: 300px;
+  height: 200px;
+  margin-bottom: 50px;
+}
+
+.div2 {
+  border: 10px solid red;
+  width: 300px;
+  height: 200px;
+  padding: 40px;
+}
+```
+
+`.div1`과 `.div2`의 `width`와 `height`를 똑같이 설정해줬는데, 결과물을 보면 크기가 서로 다르다. 그 이유는 `width`와 `height`가 테두리(border)와 패딩(padding)을 뺀 내용물(content)의 크기만 나타내기 때문이다.
+
+따라서 `.div1`의 실제 가로 길이는 테두리까지 포함한 `320px`, 세로 길이는 테두리까지 포함한 `220px`인 것이다. 반면 `.div2`의 실제 가로 길이는 테두리와 패딩까지 포함한 `400px`, 세로 길이는 `300px`이다.
+
+실제 가로, 세로 크기가 `300px`, `200px`이기 위해서는 테두리와 패딩을 고려해서 계산을 해줘야 한다는 불편함이 있다.
+
+
+
+### 해결책: box-sizing
+
+다행히 CSS3부터는 `box-sizing` 속성을 사용하면 이 문제를 해결할 수 있다. 따로 설정해주지 않으면 `box-sizing`의 기본값은 `content-box`인데, 이걸 `border-box`로 바꾸면 된다.
+
+```css
+.div1 {
+  box-sizing: border-box;
+  border: 10px solid red;
+  width: 300px;
+  height: 200px;
+  margin-bottom: 50px;
+}
+
+.div2 {
+  box-sizing: border-box;
+  border: 10px solid red;
+  width: 300px;
+  height: 200px;
+  padding: 40px;
+}
+```
+
+`box-sizing` 속성을 `border-box` 값으로 설정해주면 `width`와 `height`는 테두리와 패딩과 내용물을 모두 포함한 길이가 된다. 따라서 더 이상 귀찮은 계산을 할 필요가 없다.
+
+
+
+#### 더 간편하게!
+
+`box-sizing` 속성을 사용하면 너무 편하다 보니, 요즘 많은 개발자들이 **모든** 요소에 `box-sizing: border-box;`를 써주는 추세이다. 이걸 간편하게 한 번에 처리하기 위해서는 모든 요소를 나타내는 `*`에 속성을 써주면 된다.
+
+```CSS
+* {
+  box-sizing: border-box;
+}
+
+.div1 {
+  border: 10px solid red;
+  width: 300px;
+  height: 200px;
+  margin-bottom: 50px;
+}
+
+.div2 {
+  border: 10px solid red;
+  width: 300px;
+  height: 200px;
+  padding: 40px;
+}
+```
+
