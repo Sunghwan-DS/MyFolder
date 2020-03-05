@@ -40,3 +40,13 @@
 </html>
 ```
 
+
+
+
+
+## 4. multiple floats
+
+![image-20200304200238610](C:\Users\전재인\Desktop\git\lecture\HTML, CSS로 배우는 웹 퍼블리싱\image-20200304200238610.png)
+
+![image-20200304200324603](C:\Users\전재인\Desktop\git\lecture\HTML, CSS로 배우는 웹 퍼블리싱\image-20200304200324603.png)
+
