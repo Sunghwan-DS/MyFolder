@@ -2,6 +2,8 @@
 
 # Chapter 9. Display
 
+> 웹 페이지의 모든 요소에는 display 속성이 있으며, 이 속성을 중심으로 페이지가 구성됩니다. 각각의 상황에 적합한 display 속성은 무엇인지 배워봅시다.
+
 ## 1. display
 
 ```html
