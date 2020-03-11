@@ -210,7 +210,7 @@ HTML / CSS/ JS 를 이용하면 웹사이트를 만들 수 있다.
 
 HTML만 이용할 경우 사이트에 텍스트만 들어가기 때문에 못생겼다.
 
-![image-20200226072930501](C:\Users\전재인\AppData\Roaming\Typora\typora-user-images\image-20200226072930501.png)
+![image-20200311110549083](upload\image-20200311110549083.png)
 
 
 
@@ -232,8 +232,7 @@ ul{
 }
 ```
 
-![image-20200226072834763](C:\Users\전재인\AppData\Roaming\Typora\typora-user-images\image-20200226072834763.png)
-
-
+![image-20200311110620889](upload\image-20200311110620889.png)
 
 HTML과 CSS가 내용, 스타일을 담당한다면, JS는 인터랙션을 담당한다.
+

@@ -268,9 +268,9 @@ i {
 
 ## 9. Baseline
 
-![image-20200305185657185](C:\Users\전재인\Desktop\git\lecture\HTML, CSS로 배우는 웹 퍼블리싱\image-20200305185657185.png)
+![image-20200311111138509](upload\image-20200311111138509.png)
 
-![image-20200305185819870](C:\Users\전재인\Desktop\git\lecture\HTML, CSS로 배우는 웹 퍼블리싱\image-20200305185819870.png)
+![image-20200311111149855](upload\image-20200311111149855.png)
 
 
 
@@ -372,7 +372,7 @@ i {
 }
 ```
 
-![image-20200305200704298](C:\Users\전재인\Desktop\git\lecture\HTML, CSS로 배우는 웹 퍼블리싱\image-20200305200704298.png)
+![image-20200311111213792](upload\image-20200311111213792.png)
 
 
 

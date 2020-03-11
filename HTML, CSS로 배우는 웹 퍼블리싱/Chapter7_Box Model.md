@@ -8,7 +8,7 @@
 
 문단을 오른쪽 클릭하고 검사를 누르면 사각형 즉, 박스형태를 확인할 수 있다.
 
-![image-20200301000850690](C:\Users\전재인\AppData\Roaming\Typora\typora-user-images\image-20200301000850690.png)
+![image-20200311111004653](upload\image-20200311111004653.png)
 
 
 

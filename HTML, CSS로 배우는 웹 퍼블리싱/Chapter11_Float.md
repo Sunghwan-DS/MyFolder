@@ -6,7 +6,7 @@
 
 ## 1. float
 
-![image-20200304094543978](C:\Users\전재인\AppData\Roaming\Typora\typora-user-images\image-20200304094543978.png)
+![image-20200311111328316](upload\image-20200311111328316.png)
 
 ```html
 <!DOCTYPE html>
@@ -48,13 +48,13 @@
 
 ## 4. multiple floats
 
-![image-20200304200238610](C:\Users\전재인\Desktop\git\lecture\HTML, CSS로 배우는 웹 퍼블리싱\image-20200304200238610.png)
+![image-20200311111344673](upload\image-20200311111344673.png)
 
-![image-20200304200324603](C:\Users\전재인\Desktop\git\lecture\HTML, CSS로 배우는 웹 퍼블리싱\image-20200304200324603.png)
+![image-20200311111356472](upload\image-20200311111356472.png)
 
-![image-20200307070004209](C:\Users\전재인\Desktop\git\lecture\HTML, CSS로 배우는 웹 퍼블리싱\image-20200307070004209.png)
+![image-20200311111410717](upload\image-20200311111410717.png)
 
-![image-20200307070057479](C:\Users\전재인\Desktop\git\lecture\HTML, CSS로 배우는 웹 퍼블리싱\image-20200307070057479.png)
+![image-20200311111422728](upload\image-20200311111422728.png)
 
 그리드(Grid) 레이아웃 : 사이트 내용을 정리하는 가로 세로 틀.
 
@@ -132,4 +132,4 @@
 </html>
 ```
 
-![image-20200308212341724](C:\Users\전재인\Desktop\git\lecture\HTML, CSS로 배우는 웹 퍼블리싱\image-20200308212341724.png)
+![image-20200311111437502](upload\image-20200311111437502.png)
