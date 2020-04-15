@@ -525,6 +525,8 @@ melbourne_model = DecisionTreeRegressor()
 melbourne_model.fit(X, y)
 ```
 
+의문 : 왜 이곳 DecisionTreeRegressor()에는 random_state=1 이 없을까?
+
 
 
 Once we have a model, here is how we calculate the mean absolute error:
@@ -536,6 +538,12 @@ predicted_home_prices = melbourne_model.predict(X)
 mean_absolute_error(y, predicted_home_prices)
 ```
 
+```
+434.71594577146544
+```
+
+
+
 
 
 ## 4.2 The Problem with "In-Sample" Scores
@@ -544,13 +552,320 @@ The measure we just computed can be called an "in-sample" score. We used a singl
 
 Since this pattern was derived from the training data, the model will appear accurate in the training data.
 
-But if this pattern doesn't hold when the model sees new data, the model would be very inaccurate when used in practice.
-
 Since models' practical value come from making predictions on new data, we measure performance on data that wasn't used to build the model. The most straightforward way to do this is to exclude some data from the model-building process, and then use those to test the model's accuracy on data it hasn't seen before. This data is called **validation data**.
 
 
 
-## 4.3 Coding It
+### 4.2.1 Coding It
+
+The scikit-learn library has a function `train_test_split` to break up the data into two pieces. We'll use some of that data as training data to fit the model, and we'll use the other data as validation data to calculate `mean_absolute_error`.
+
+```python
+from sklearn.model_selection import train_test_split
+
+# split data into training and validation data, for both features and target
+# The split is based on a random number generator. Supplying a numeric value to
+# the random_state argument guarantees we get the same split every time we
+# run this script.
+train_X, val_X, train_y, val_y = train_test_split(X, y, random_state = 0)
+# Define model
+melbourne_model = DecisionTreeRegressor()
+# Fit model
+melbourne_model.fit(train_X, train_y)
+
+# get predicted prices on validation data
+val_predictions = melbourne_model.predict(val_X)
+print(mean_absolute_error(val_y, val_predictions))
+```
+
+```
+259556.7211103938
+```
+
+
+
+
+
+### 4.2.2 Wow!
+
+Your mean absolute error for the in-sample data was about 500 dollars. Out-of-sample it is more than 250,000 dollars.
+
+This is the difference between a model that is almost exactly right, and one that is unusable for most practical purposes. As a point of reference, the average home value in the validation data is 1.1 million dollars. So the error in new data is about a quarter of the average home value.
+
+There are many ways to improve this model, such as experimenting to find better features or different model types.
+
+
+
+## 4.3 Exercise: Model Validation
+
+### 4.3.1 Recap
+
+>  In this exercise you will test how good your model is.
+
+```python
+# Code you have previously used to load data
+import pandas as pd
+from sklearn.tree import DecisionTreeRegressor
+
+# Path of the file to read
+iowa_file_path = '../input/home-data-for-ml-course/train.csv'
+
+home_data = pd.read_csv(iowa_file_path)
+y = home_data.SalePrice
+feature_columns = ['LotArea', 'YearBuilt', '1stFlrSF', '2ndFlrSF', 'FullBath', 'BedroomAbvGr', 'TotRmsAbvGrd']
+X = home_data[feature_columns]
+
+# Specify Model
+iowa_model = DecisionTreeRegressor()
+# Fit Model
+iowa_model.fit(X, y)
+
+print("First in-sample predictions:", iowa_model.predict(X.head()))
+print("Actual target values for those homes:", y.head().tolist())
+
+# Set up code checking
+from learntools.core import binder
+binder.bind(globals())
+from learntools.machine_learning.ex4 import *
+print("Setup Complete")
+```
+
+
+
+### 4.3.2 Step 1: Split Your Data
+
+> Use the `train_test_split` function to split up your data.
+>
+> Give it the argument `random_state=1` so the `check` functions know what to expect when verifying your code.
+>
+> Recall, your features are loaded in the DataFrame **X** and your target is loaded in **y**.
+
+```python
+# Import the train_test_split function and uncomment
+from sklearn.model_selection import train_test_split
+
+# fill in and uncomment
+train_X, val_X, train_y, val_y = train_test_split(X, y, random_state=1)
+```
+
+
+
+### 4.3.3 Step 2: Specify and Fit the Model
+
+> Create a `DecisionTreeRegressor` model and fit it to the relevant data. Set `random_state` to 1 again when creating the model.
+
+```python
+# You imported DecisionTreeRegressor in your last exercise
+# and that code has been copied to the setup code above. So, no need to
+# import it again
+from sklearn.tree import DecisionTreeRegressor
+
+# Specify the model
+iowa_model = DecisionTreeRegressor(random_state=1)
+
+# Fit iowa_model with the training data.
+iowa_model.fit(train_X, train_y)
+```
+
+
+
+### 4.3.4 Step 3: Make Predictions with Validation data
+
+```python
+# Predict with all validation observations
+val_predictions = iowa_model.predict(val_X)
+```
+
+Inspect your predictions and actual values from validation data.
+
+```python
+# print the top few validation predictions
+print(val_y)
+# print the top few actual prices from validation data
+print(val_predictions)
+```
+
+
+
+### 4.3.5 Step 4: Calculate the Mean Absolute Error in Validation Data
+
+```python
+from sklearn.metrics import mean_absolute_error
+val_mae = mean_absolute_error(val_y, val_predictions)
+
+# uncomment following line to see the validation_mae
+print(val_mae)
+```
+
+
+
+# 5. Underfitting and Overgitting
+
+## 5.1 Experimenting With Different Models
+
+You can see in scikit-learn's [documentation](http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html) that the decision tree model has many options (more than you'll want or need for a long time). The most important options determine the tree's depth. Recall from [the first lesson in this micro-course](https://www.kaggle.com/dansbecker/how-models-work) that a tree's depth is a measure of how many splits it makes before coming to a prediction. This is a relatively shallow tree
+
+![image-20200415183707611](image-20200415183707611.png)
+
+If we keep doubling the number of groups by adding more splits at each level, we'll have 210210 groups of houses by the time we get to the 10th level. That's 1024 leaves.
+
+This is a phenomenon called **overfitting**, where a model matches the training data almost perfectly, but does poorly in validation and other new data. On the flip side, if we make our tree very shallow, it doesn't divide up the houses into very distinct groups.
+
+At an extreme, if a tree divides houses into only 2 or 4, each group still has a wide variety of houses. Resulting predictions may be far off for most houses, even in the training data (and it will be bad in validation too for the same reason). When a model fails to capture important distinctions and patterns in the data, so it performs poorly even in training data, that is called **underfitting**.
+
+Since we care about accuracy on new data, which we estimate from our validation data, we want to find the sweet spot between underfitting and overfitting. Visually, we want the low point of the (red) validation curve in
+
+![image-20200415191003761](image-20200415191003761.png)
+
+
+
+## 5.1.1 Example
+
+There are a few alternatives for controlling the tree depth, and many allow for some routes through the tree to have greater depth than other routes. But the *max_leaf_nodes* argument provides a very sensible way to control overfitting vs underfitting. The more leaves we allow the model to make, the more we move from the underfitting area in the above graph to the overfitting area.
+
+We can use a utility function to help compare MAE scores from different values for *max_leaf_nodes*:
+
+```python
+from sklearn.metrics import mean_absolute_error
+from sklearn.tree import DecisionTreeRegressor
+
+def get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y):
+    model = DecisionTreeRegressor(max_leaf_nodes=max_leaf_nodes, random_state=0)
+    model.fit(train_X, train_y)
+    preds_val = model.predict(val_X)
+    mae = mean_absolute_error(val_y, preds_val)
+    return(mae)
+```
+
+The data is loaded into **train_X**, **val_X**, **train_y** and **val_y** using the code you've already seen (and which you've already written).
+
+We can use a for-loop to compare the accuracy of models built with different values for *max_leaf_nodes.*
+
+```python
+# compare MAE with differing values of max_leaf_nodes
+for max_leaf_nodes in [5, 50, 500, 5000]:
+    my_mae = get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y)
+    print("Max leaf nodes: %d  \t\t Mean Absolute Error:  %d" %(max_leaf_nodes, my_mae))
+```
+
+```
+Max leaf nodes: 5  		 Mean Absolute Error:  347380
+Max leaf nodes: 50  		 Mean Absolute Error:  258171
+Max leaf nodes: 500  		 Mean Absolute Error:  243495
+Max leaf nodes: 5000  		 Mean Absolute Error:  254983
+```
+
+Of the options listed, 500 is the optimal number of leaves.
+
+
+
+### 5.1.2 Conclusion
+
+Here's the takeaway: Models can suffer from either:
+
+- **Overfitting:** capturing spurious patterns that won't recur in the future, leading to less accurate predictions, or
+- **Underfitting:** failing to capture relevant patterns, again leading to less accurate predictions.
+
+We use **validation** data, which isn't used in model training, to measure a candidate model's accuracy. This lets us try many candidate models and keep the best one.
+
+
+
+## 5.2 Exercise: Underfitting and Overfitting
+
+### 5.2.1 Recap
+
+> You've built your first model, and now it's time to optimize the size of the tree to make better predictions. Run this cell to set up your coding environment where the previous step left off.
+
+```python
+# Code you have previously used to load data
+import pandas as pd
+from sklearn.metrics import mean_absolute_error
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeRegressor
+
+
+# Path of the file to read
+iowa_file_path = '../input/home-data-for-ml-course/train.csv'
+
+home_data = pd.read_csv(iowa_file_path)
+# Create target object and call it y
+y = home_data.SalePrice
+# Create X
+features = ['LotArea', 'YearBuilt', '1stFlrSF', '2ndFlrSF', 'FullBath', 'BedroomAbvGr', 'TotRmsAbvGrd']
+X = home_data[features]
+
+# Split into validation and training data
+train_X, val_X, train_y, val_y = train_test_split(X, y, random_state=1)
+
+# Specify Model
+iowa_model = DecisionTreeRegressor(random_state=1)
+# Fit Model
+iowa_model.fit(train_X, train_y)
+
+# Make validation predictions and calculate mean absolute error
+val_predictions = iowa_model.predict(val_X)
+val_mae = mean_absolute_error(val_predictions, val_y)
+print("Validation MAE: {:,.0f}".format(val_mae))
+
+# Set up code checking
+from learntools.core import binder
+binder.bind(globals())
+from learntools.machine_learning.ex5 import *
+print("\nSetup complete")
+```
+
+
+
+You could write the function `get_mae` yourself. For now, we'll supply it. This is the same function you read about in the previous lesson. Just run the cell below.
+
+```python
+def get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y):
+    model = DecisionTreeRegressor(max_leaf_nodes=max_leaf_nodes, random_state=0)
+    model.fit(train_X, train_y)
+    preds_val = model.predict(val_X)
+    mae = mean_absolute_error(val_y, preds_val)
+    return(mae)
+```
+
+
+
+### 5.2.2 Step 1: Compare Different Tree Sizes
+
+> Write a loop that tries the following values for *max_leaf_nodes* from a set of possible values.
+>
+> Call the *get_mae* function on each value of max_leaf_nodes. Store the output in some way that allows you to select the value of `max_leaf_nodes` that gives the most accurate model on your data.
+
+```python
+candidate_max_leaf_nodes = [5, 25, 50, 100, 250, 500]
+# Write loop to find the ideal tree size from candidate_max_leaf_nodes
+ans = 0
+res_min = 10000000
+for max_leaf_nodes in candidate_max_leaf_nodes:
+    res = get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y)
+    print(res)
+    if res_min > res:
+        res_min = res
+        ans = max_leaf_nodes
+
+# Store the best value of max_leaf_nodes (it will be either 5, 25, 50, 100, 250 or 500)
+best_tree_size = ans
+```
+
+
+
+### 5.2.3 Step 2: Fit Model Using All Data
+
+> You know the best tree size. If you were going to deploy this model in practice, you would make it even more accurate by using all of the data and keeping that tree size. That is, you don't need to hold out the validation data now that you've made all your modeling decisions.
+
+```python
+# Fill in argument to make optimal size and uncomment
+final_model = DecisionTreeRegressor(max_leaf_nodes=ans, random_state=0)
+
+# fit the final model and uncomment the next two lines
+final_model.fit(X, y)
+```
+
+
 
 
 
@@ -580,5 +895,16 @@ from sklearn.metrics import mean_absolute_error
 
 predicted_home_prices = melbourne_model.predict(X)
 mean_absolute_error(y, predicted_home_prices)
+
+
+from sklearn.model_selection import train_test_split
+train_X, val_X, train_y, val_y = train_test_split(X, y, random_state = 0)
+Name_model = DecisionTreeRegressor()
+Name_model.fit(train_X, train_y)
+
+val_predictions = melbourne_model.predict(val_X)
+print(mean_absolute_error(val_y, val_predictions))
+
+model = DecisionTreeRegressor(max_leaf_nodes=max_leaf_nodes, random_state=0)
 ```
 
