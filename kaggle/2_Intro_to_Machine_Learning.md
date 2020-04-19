@@ -699,7 +699,7 @@ print(val_mae)
 
 
 
-# 5. Underfitting and Overgitting
+# 5. Underfitting and Overfitting
 
 ## 5.1 Experimenting With Different Models
 
