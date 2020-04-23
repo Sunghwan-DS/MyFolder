@@ -94,6 +94,76 @@ The structure of a table is called its **schema**. We need to understand a table
 
 In this example, we'll investigate the `full` table that we fetched above.
 
+```python
+# Print information on all the columns in the "full" table in the "hacker_news" dataset
+table.schema
+```
+
+<details><summary>table.schema</summary>[SchemaField('title', 'STRING', 'NULLABLE', 'Story title', ()),
+ SchemaField('url', 'STRING', 'NULLABLE', 'Story url', ()),
+ SchemaField('text', 'STRING', 'NULLABLE', 'Story or comment text', ()),
+ SchemaField('dead', 'BOOLEAN', 'NULLABLE', 'Is dead?', ()),
+ SchemaField('by', 'STRING', 'NULLABLE', "The username of the item's author.", ()),
+ SchemaField('score', 'INTEGER', 'NULLABLE', 'Story score', ()),
+ SchemaField('time', 'INTEGER', 'NULLABLE', 'Unix time', ()),
+ SchemaField('timestamp', 'TIMESTAMP', 'NULLABLE', 'Timestamp for the unix time', ()),
+ SchemaField('type', 'STRING', 'NULLABLE', 'Type of details (comment, comment_ranking, poll, story, job, pollopt)', ()),
+ SchemaField('id', 'INTEGER', 'NULLABLE', "The item's unique id.", ()),
+ SchemaField('parent', 'INTEGER', 'NULLABLE', 'Parent comment ID', ()),
+ SchemaField('descendants', 'INTEGER', 'NULLABLE', 'Number of story or poll descendants', ()),
+ SchemaField('ranking', 'INTEGER', 'NULLABLE', 'Comment ranking', ()),
+ SchemaField('deleted', 'BOOLEAN', 'NULLABLE', 'Is deleted?', ())]</details>
+
+
+
+Each [`SchemaField`](https://googleapis.github.io/google-cloud-python/latest/bigquery/generated/google.cloud.bigquery.schema.SchemaField.html#google.cloud.bigquery.schema.SchemaField) tells us about a specific column (which we also refer to as a **field**). In order, the information is:
+
+- The **name** of the column
+- The **field type** (or datatype) in the column
+- The **mode** of the column (`'NULLABLE'` means that a column allows NULL values, and is the default)
+- A **description** of the data in that column
+
+The first field has the SchemaField:
+
+```
+SchemaField('by', 'string', 'NULLABLE', "The username of the item's author.",())
+```
+
+This tells us:
+
+- the field (or column) is called `by`,
+- the data in this field is strings,
+- NULL values are allowed, and
+- it contains the usernames corresponding to each item's author.
+
+We can use the [`list_rows()`](https://google-cloud.readthedocs.io/en/latest/bigquery/generated/google.cloud.bigquery.client.Client.list_rows.html#google.cloud.bigquery.client.Client.list_rows) method to check just the first five lines of of the `full` table to make sure this is right. (Sometimes databases have outdated descriptions, so it's good to check.) This returns a BigQuery [`RowIterator`](https://googleapis.github.io/google-cloud-python/latest/bigquery/generated/google.cloud.bigquery.table.RowIterator.html) object that can quickly be converted to a pandas DataFrame with the [`to_dataframe()`](https://google-cloud.readthedocs.io/en/latest/bigquery/generated/google.cloud.bigquery.table.RowIterator.to_dataframe.html) method.
+
+```python
+# Preview the first five lines of the "full" table
+client.list_rows(table, max_results=5).to_dataframe()
+```
+
+
+
+The `list_rows()` method will also let us look at just the information in a specific column. If we want to see the first five entries in the `by` column, for example, we can do that!
+
+```python
+# Preview the first five entries in the "by" column of the "full" table
+client.list_rows(table, selected_fields=table.schema[:1], max_results=5).to_dataframe()
+```
+
+
+
+## 1.3 Disclaimer
+
+Before we go into the coding exercise, a quick disclaimer for those who already know some SQL:
+
+**Each Kaggle user can scan 5TB every 30 days for free. Once you hit that limit, you'll have to wait for it to reset.**
+
+The commands you've seen so far won't demand a meaningful fraction of that limit. But some BiqQuery datasets are huge. So, if you already know SQL, wait to run SELECT queries until you've seen how to use your allotment effectively. If you are like most people reading this, you don't know how to write these queries yet, so you don't need to worry about this disclaimer.
+
+
+
 
 
 # Intro to SQL : Built-in Function
