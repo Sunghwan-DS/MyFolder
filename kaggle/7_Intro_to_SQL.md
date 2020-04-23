@@ -164,6 +164,12 @@ The commands you've seen so far won't demand a meaningful fraction of that limit
 
 
 
+## 1.4 Exercise: Getting Started With SQL and BigQuery
+
+### Introduction
+
+
+
 
 
 # Intro to SQL : Built-in Function
@@ -177,5 +183,11 @@ dataset = client.get_dataset(dataset_ref)
 tables = list(client.list_tables(dataset))
 for table in tables:  
     print(table.table_id)
+
+table_ref = dataset_ref.table("full")
+table = client.get_table(table_ref)
+table.schema
+client.list_rows(table, max_results=5).to_dataframe()
+client.list_rows(table, selected_fields=table.schema[:1], max_results=5).to_dataframe()
 ```
 
