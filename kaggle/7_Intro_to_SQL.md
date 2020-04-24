@@ -2,13 +2,15 @@
 
 # 1. Getting Started With SQL and BigQuery
 
-## Introduction
+## 1.1 Tutorial
+
+### 1.1.1 Introduction
 
 Structured Query Language, or **SQL**, is the programming language used with databases, and it is an important skill for any data scientist. In this course, you'll build your SQL skills using **BigQuery**, a web service that lets you apply SQL to huge datasets.
 
 
 
-## 1.1 Your first BigQuery commands
+### 1.1.2 Your first BigQuery commands
 
 To use BigQuery, we'll import the Python package below:
 
@@ -88,7 +90,7 @@ In the next section, you'll explore the contents of this table in more detail. F
 
 
 
-## 1.2 Table schema
+### 1.1.3 Table schema
 
 The structure of a table is called its **schema**. We need to understand a table's schema to effectively pull out the data we want.
 
@@ -154,7 +156,7 @@ client.list_rows(table, selected_fields=table.schema[:1], max_results=5).to_data
 
 
 
-## 1.3 Disclaimer
+### 1.1.4 Disclaimer
 
 Before we go into the coding exercise, a quick disclaimer for those who already know some SQL:
 
@@ -164,9 +166,127 @@ The commands you've seen so far won't demand a meaningful fraction of that limit
 
 
 
-## 1.4 Exercise: Getting Started With SQL and BigQuery
+## 1.2 Exercise
 
-### Introduction
+### 1.2.1 Introduction
+
+```python
+# Set up feedack system
+from learntools.core import binder
+binder.bind(globals())
+from learntools.sql.ex1 import *
+print("Setup Complete")
+```
+
+```
+Using Kaggle's public dataset BigQuery integration.
+Setup Complete
+```
+
+
+
+```python
+from google.cloud import bigquery
+
+# Create a "Client" object
+client = bigquery.Client()
+
+# Construct a reference to the "chicago_crime" dataset
+dataset_ref = client.dataset("chicago_crime", project="bigquery-public-data")
+
+# API request - fetch the dataset
+dataset = client.get_dataset(dataset_ref)
+```
+
+
+
+### 1.2.2 1) Count tables in the dataset
+
+> How many tables are in the Chicago Crime dataset?
+
+```python
+# Write the code you need here to figure out the answer
+```
+
+
+
+```python
+num_tables = tables = len(list(client.list_tables(dataset)))  # Store the answer as num_tables and then run this cell
+```
+
+
+
+### 1.2.3 2) Explore the table schema
+
+> How many columns in the `crime` table have `TIMESTAMP` data?
+
+```python
+table_ref = dataset_ref.table("crime")
+table = client.get_table(table_ref)
+print(table.schema)
+num_timestamp_fields = 2 # Put your answer here
+```
+
+
+
+### 1.2.4 3) Create a crime map
+
+> If you wanted to create a map with a dot at the location of each crime, what are the names of the two fields you likely need to pull out of the `crime` table to plot the crimes on a map?
+
+```python
+fields_for_plotting = [____, ____] # Put your answers here
+```
+
+???????
+
+
+
+
+
+# 2. Select, From & Where
+
+## 2.1 Tutorial
+
+### 2.1.1 Introduction
+
+We'll begin by using the keywords **SELECT**, **FROM**, and **WHERE** to get data from specific columns based on conditions you specify.
+
+For clarity, we'll work with a small imaginary dataset `pet_records` which contains just one table, called `pets`.
+
+![img](fI5Pvvp.png)
+
+
+
+### 2.1.2 SELECT ... FROM
+
+The most basic SQL query selects a single column from a single table. To do this,
+
+- specify the column you want after the word **SELECT**, and then
+- specify the table after the word **FROM**.
+
+For instance, to select the `Name` column (from the `pets` table in the `pet_records` database in the `bigquery-public-data` project), our query would appear as follows:
+
+![img](c3GxYRt.png)
+
+Note that when writing an SQL query, the argument we pass to **FROM** is *not* in single or double quotation marks (' or "). It is in backticks (`).
+
+
+
+### 2.1.3 WHERE ...
+
+BigQuery datasets are large, so you'll usually want to return only the rows meeting specific conditions. You can do this using the **WHERE** clause.
+
+The query below returns the entries from the `Name` column that are in rows where the `Animal` column has the text `'Cat'`.
+
+![img](HJOT8Kb.png)
+
+
+
+### 2.1.4 Example: What are all the U.S. cities in the OpenAQ dataset?
+
+
+
+
 
 
 
@@ -188,6 +308,6 @@ table_ref = dataset_ref.table("full")
 table = client.get_table(table_ref)
 table.schema
 client.list_rows(table, max_results=5).to_dataframe()
-client.list_rows(table, selected_fields=table.schema[:1], max_results=5).to_dataframe()
+client.list_rows(table, stelected_fields=table.schema[:1], max_results=5).to_dataframe()
 ```
 
