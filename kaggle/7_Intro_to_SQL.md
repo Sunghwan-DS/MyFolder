@@ -234,7 +234,7 @@ num_timestamp_fields = 2 # Put your answer here
 > If you wanted to create a map with a dot at the location of each crime, what are the names of the two fields you likely need to pull out of the `crime` table to plot the crimes on a map?
 
 ```python
-fields_for_plotting = [____, ____] # Put your answers here
+fields_for_plotting = ['latitude', 'longitude'] # Put your answers here
 ```
 
 ???????
@@ -309,5 +309,7 @@ table = client.get_table(table_ref)
 table.schema
 client.list_rows(table, max_results=5).to_dataframe()
 client.list_rows(table, stelected_fields=table.schema[:1], max_results=5).to_dataframe()
+
+fields_for_plotting = ['latitude', 'longitude']
 ```
 
