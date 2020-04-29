@@ -284,6 +284,39 @@ The query below returns the entries from the `Name` column that are in rows wher
 
 ### 2.1.4 Example: What are all the U.S. cities in the OpenAQ dataset?
 
+Now that you've got the basics down, let's work through an example with a real dataset. We'll use an [OpenAQ](https://openaq.org/) dataset about air quality.
+
+First, we'll set up everything we need to run queries and take a quick peek at what tables are in our database. (*Since you learned how to do this in the previous tutorial, we have hidden the code. But if you'd like to take a peek, you need only click on the "Code" button below.*)
+
+```
+Using Kaggle's public dataset BigQuery integration.
+global_air_quality
+```
+
+
+
+Everything looks good! So, let's put together a query. Say we want to select all the values from the `city` column that are in rows where the `country` column is `'US'` (for "United States").
+
+
+
+
+
+### 2.1.5 Submitting the query to the dataset
+
+We're ready to use this query to get information from the OpenAQ dataset. As in the previous tutorial, the first step is to create a [`Client`](https://google-cloud.readthedocs.io/en/latest/bigquery/generated/google.cloud.bigquery.client.Client.html#google.cloud.bigquery.client.Client) object.
+
+```python
+Create a "Client" object
+client = bigquery.Client()
+```
+
+We begin by setting up the query with the [`query()`](https://google-cloud.readthedocs.io/en/latest/bigquery/generated/google.cloud.bigquery.client.Client.query.html#google.cloud.bigquery.client.Client.query) method. We run the method with the default parameters, but this method also allows us to specify more complicated settings that you can read about in [the documentation](https://google-cloud.readthedocs.io/en/latest/bigquery/generated/google.cloud.bigquery.client.Client.query.html#google.cloud.bigquery.client.Client.query). We'll revisit this later.
+
+```python
+# Set up the query
+query_job = client.query(query)
+```
+
 
 
 
