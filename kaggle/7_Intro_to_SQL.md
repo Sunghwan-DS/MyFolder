@@ -319,6 +319,51 @@ query_job = client.query(query)
 
 
 
+```python
+# API request - run the query, and return a pandas DataFrame
+us_cities = query_job.to_dataframe()
+```
+
+
+
+```python
+# What five cities have the most measurements?
+us_cities.city.value_counts().head()
+```
+
+```
+Phoenix-Mesa-Scottsdale                     87
+Houston                                     76
+Los Angeles-Long Beach-Santa Ana            68
+New York-Northern New Jersey-Long Island    60
+Riverside-San Bernardino-Ontario            60
+Name: city, dtype: int64
+```
+
+
+
+### 2.1.6 More queries
+
+If you want multiple columns, you can select them with a comma between the names:
+
+```python
+query = """
+        SELECT city, country
+        FROM `bigquery-public-data.openaq.global_air_quality`
+        WHERE country = 'US'
+        """
+```
+
+
+
+```python
+query = """
+        SELECT *
+        FROM `bigquery-public-data.openaq.global_air_quality`
+        WHERE country = 'US'
+        """
+```
+
 
 
 
