@@ -162,6 +162,11 @@ Regression 모델이 있을 때, 학습 데이터(x, y)를 이용하여 학습�
 #### 2.3.1. Check installation and version
 
 ```python
+pip install --upgrade tensorflow-cpu==1.15.0 # v1.0
+pip install --upgrade --pre tensorflow-cpu # v2.0
+```
+
+```python
 import tencorflow as tf
 tf.__version__
 ```
