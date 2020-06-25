@@ -124,7 +124,26 @@ GradientDecentOptimizer()
 
 
 
-##### 2.1.1.1. v2.0, keras에서의 사용방법 정리
+##### 2.1.1.2. v2.0에서의 사용방법 정리 (아마도?)
+
+```python
+# X and Y data
+x_train = [1, 2, 3]
+y_train = [1, 2, 3]
+
+w = tf.Variable(tf.random.normal([1]), name='weight')
+b = tf.Variable(tf.random.normal([1]), name='bias')
+# Our hypothesis XW+b
+hypothesis = x_train * W + b
+```
+
+```
+출력되는 값이 없어서 현재는 확인불가
+```
+
+
+
+##### 2.1.1.3. v2.0, keras에서의 사용방법 정리
 
 ```python
 # keras 이용 코드
