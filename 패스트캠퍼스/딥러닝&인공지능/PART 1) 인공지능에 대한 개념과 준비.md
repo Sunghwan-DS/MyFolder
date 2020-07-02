@@ -167,6 +167,50 @@ model을 학습시키기 위한 것.
 
 # 4. 인공지능 개념이해 - 딥러닝 용어(2)
 
+## 4.1. Cost / Loss / Loss Function
+
+![image-20200702180952385](image/image-20200702180952385.png)
+
+Loss Function : 예측치가 얼마나 틀렸는가를 계산하는 방식
+
+
+
+## 4.2. Optimization
+
+![image-20200701171950974](image/image-20200701171950974.png)
+
+> Loss Function으로 계산된 값을 줄이기 위한 행위 (최적화)
+>
+> 모델을 업데이트 한다.
+
+
+
+## 4.3. Learning Rate
+
+![image-20200702183631295](image/image-20200702183631295.png)
+
+> Learning Rate가 너무 낮으면 시간이 오래 걸린다.
+>
+> Learning Rate가 너무 높으면 minimum point를 찾지 못할수도 있다.
+
+
+
+## 4.4. Batch Size
+
+> 모델에 데이터를 넣어주는데 데이터를 한번에 넣어줄 수 없다.
+>
+> 한번에 몇 개의 데이터를 넣어줄 것인가가 바로 Batch Size. 보통 32, 64, 128...
+
+
+
+## 4.5. Epoch / Step
+
+> Epoch : 모델에 같은 데이터를 몇 번 반복하여 학습시킬 것인가.
+
+
+
+## 4.6. Train / Validation / Test
+
 
 
 # 5. 인공지능 개념이해 - CNN 모델 구조
