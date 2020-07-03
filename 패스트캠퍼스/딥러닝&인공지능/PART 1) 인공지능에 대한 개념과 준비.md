@@ -211,7 +211,83 @@ Loss Function : 예측치가 얼마나 틀렸는가를 계산하는 방식
 
 ## 4.6. Train / Validation / Test
 
+![image-20200703092105368](image/image-20200703092105368.png)
+
+
+
+## 4.7. Label / Ground Truth
+
+![image-20200703092147530](image/image-20200703092147530.png)
+
+> 정답. 즉, Y에 해당하는 것.
+
 
 
 # 5. 인공지능 개념이해 - CNN 모델 구조
+
+## 5.1. Feature Extraction / Classification
+
+![image-20200703092343406](image/image-20200703092343406.png)
+
+> 특징을 추출하는 곳 / 결정을 내리는 곳
+>
+> 딥러닝이 어떠한 특징들을 뽑아냈는지 이야기하기 어렵다 => 때문에 블랙박스라고 불림
+
+
+
+## 5.2. Convolution Layer
+
+![image-20200703092607992](image/image-20200703092607992.png)
+
+> Filter에 따라 가져오는 특징이 다르다.
+
+
+
+## 5.3. Pooling Layer (Max Pooling)
+
+![image-20200703092724611](image/image-20200703092724611.png)
+
+> 가장 큰 특징만을 모은다. 압축이라고 이해하면 좋다.
+
+
+
+## 5.4. Fully Connected
+
+![image-20200703093703927](image/image-20200703093703927.png)
+
+> 예측하는 부분
+
+
+
+## 5.5. Model
+
+> Layer층에 대해 어떤 Layer층이 있을까에 대해 두려워할 필요가 없다.
+
+### 5.5.1. LeNet
+
+![image-20200703095524323](image/image-20200703095524323.png)
+
+
+
+### 5.5.2. AlexNet
+
+![image-20200703095636991](image/image-20200703095636991.png)
+
+
+
+### 5.5.3. VGG-16
+
+![image-20200703095710612](image/image-20200703095710612.png)
+
+
+
+### 5.5.4. ResNet
+
+![image-20200703095742352](image/image-20200703095742352.png)
+
+
+
+### 5.5.5. DenseNet
+
+![image-20200703095811320](image/image-20200703095811320.png)
 
