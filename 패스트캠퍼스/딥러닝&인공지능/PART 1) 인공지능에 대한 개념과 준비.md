@@ -291,3 +291,213 @@ Loss Function : 예측치가 얼마나 틀렸는가를 계산하는 방식
 
 ![image-20200703095811320](image/image-20200703095811320.png)
 
+
+
+
+
+# 6. 인공지능 개발준비 - OS별 Anaconda부터 TensorFlow 및 Pytorch 설치 (Windows)
+
+## 6.1. anaconda 설치
+
+1. 구글에 anaconda download 검색 후, 첫 번째 사이트 접속.
+
+2. 가장 하단에 있는 다운로드 중 파이썬 3.7 버전에 호환되는 다운로드 선택
+
+3. Username이 한국말로 되있는 경우 All users 선택
+
+   ![image-20200704205841994](image/image-20200704205841994.png)
+
+4. 꼭 체크해야 하는 것은 아니지만 path 설정을 해주기 위해 위쪽 체크 선택
+
+   ![image-20200704210019687](image/image-20200704210019687.png)
+
+5. 작업하고자 하는 Workspace를 만들어준 후, `shift+오른쪽 마우스` 를 통해서 PowerShell을 열어 jupyter notebook을 켤 수 있다.
+
+
+
+## 6.2. tensorflow 설치
+
+1. (바로 3번으로 넘어가도 됨)https://www.tensorflow.org/ tps://www.tensorflow.org/ 에 접속
+2. 설치로 들어가서 설치 코드를 확인
+3. power shell을 열어 `$ pip install tensorflow` 를 입력해준다. 만약 pip 버전이 낮다면 `$ pip install --upgrade pip` 를 먼저 입력해준다.
+4. anaconda(jupyter notebook)에서 `import tensorflow as tf` 코드를 통해 사용이 가능하다
+
+
+
+## 6.3. pytorch 설치
+
+1. https://pytorch.org/ 에 접속
+
+2. 하단에 설치하고자 하는 환경에 대한 설치 코드를 알아낼 수 있다.
+
+   ![image-20200704212726945](image/image-20200704212726945.png)
+
+   ```
+   pip install torch==1.5.1+cpu torchvision==0.6.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
+   ```
+
+3. power shell에 코드를 입력하여 설치
+4. `import torch` 코드를 통해서 사용이 가능하다.
+
+
+
+# 7. 인공지능 개발준비 - OS별 Anaconda부터 TensorFlow 및 Pytorch 설치 (mac)
+
+생략
+
+
+
+# 8. 인공지능 개발준비 - Anaconda 활용 및 단축키
+
+- `Shift+Enter` : 코드블럭 실행 후, 다음 셀로 넘어감.
+- `Alt+Enter` : 실행하고 다음셀 생성 후, 새로 생성된 셀로 넘어감.
+- `Ctrl+Enter`: 실행한 후, 실행한 셀에 남음.
+
+코드 블럭의 왼편이 파란색일 때는 Command Mode, 초록색일 때는 Edit Mode 이다. Esc를 누르면 Command Mode로, Enter를 누르면 Edit Mode로 전환할 수 있다.
+
+
+
+- `dd` : 셀 삭제, 셀 다중선택 후 사용하면 여러 개의 셀을 한번에 삭제 가능.
+- `Shift+M` : 셀 병합.
+- `Shift+Ctrl+-` : 셀 분할.
+- Kernel - Restart : 코드 재실행.
+- `a` : 위쪽에 새로운 셀 생성.
+- `b` : 아래쪽에 새로운 셀 생성.
+- `m` : 코드블럭 markdown 모드로 변경.
+
+Help - Keyboard Shortcuts 에서 단축키 확인 가능.
+
+
+
+# 9. 인공지능 개발준비 - Tensor 이해하기
+
+## 9.1. Tensor
+
+![image-20200704214816812](image/image-20200704214816812.png)
+
+딥러닝에서는 주로 고차원적인 데이터를 많이 사용될 것이기 때문에 Tensor의 개념을 잘 이해하는 것이 중요하다.
+
+Numpy는 그런 고차원적인 데이터를 다루기 쉽게 만들어져 있어 딥러닝을 하게 된다면 늘 접하게 될 것이다.
+
+```python
+import numpy as np
+```
+
+
+
+### 9.1.1. 0차원
+
+- numpy array는 1 또는 5, 10와 같이 숫자 데이터를 arra화 해줄 수 있다.
+- Scalar로 들어갔을 때는 shape가 아무것도 없는 것으로 나온다.
+
+```python
+arr = np.array(5)
+print(arr.shape)
+print(arr.ndim)
+```
+
+```
+()
+0
+```
+
+
+
+### 9.1.2. 1차원
+
+- 숫자가 10과 같이 하나만 들어간다고 해도 [] 리스트를 한번 씌우게 되면 차원이 생긴다.
+- 이때는 1차원이 되는건데 numpy 에서 shape를 표현할 때 (1)이 아닌 (1, ) 이런 식으로 표현하게 된다.
+
+```python
+arr = np.array([5])
+print(arr.shape)
+```
+
+```
+(1, )
+```
+
+- 명심해야 할 것이 있는데 위의 (3, )에서 3은 3이라는 값이 들어간 것이 아닌 shape라는 것이다.
+- 1차원에서 3개의 값이 들어갔다는 의미
+- 해석하자면 1차원에 3개의 값(value)가 들어가 있는 상태
+
+```python
+arr = np.array([1, 2, 3])
+print(arr.shape)
+```
+
+```
+(3, )
+```
+
+
+
+### 9.1.3. 2차원
+
+- 대괄호를 추가적으로 씌우면 차원이 추가적으로 하나 생김
+
+```python
+arr = np.array([[1, 2, 3]])
+print(arr.shape)
+```
+
+```
+(1, 3)
+```
+
+- 위의 shape를 다시 보자면 차원이 2개가 있고, 각 차원마다 각각 3개의 값이 들어있다고 생각하면 된다.
+
+```python
+arr = np.array([[1, 2, 3], [1, 2, 3], [1, 2, 3]])
+print(arr.shape)
+```
+
+```
+(3, 3)
+```
+
+- 참고로 0차원 숫자에 대문자에 대괄호를 2번 씌우면 두 개의 차원이 된다.
+
+```python
+arr = np.array([[10]])
+print(arr.shape)
+print(arr.ndim)
+```
+
+```
+(1, 1)
+2
+```
+
+
+
+### 9.1.4. 다 차원
+
+![image-20200704220540041](image/image-20200704220540041.png)
+
+```python
+print(arr.shape)
+```
+
+```
+(2, 2, 3, 3)
+```
+
+
+
+![image-20200704220738158](image/image-20200704220738158.png)
+
+```python
+print(arr.shape)
+```
+
+```
+(3, 3, 1)
+```
+
+
+
+# 10. 인공지능 개발준비 - Numpy 기초(1)
+
+
+
