@@ -713,3 +713,18 @@ array([[ 1,  3,  5],
 
 ## 10.3. Math Function
 
+```python
+arr = np.arange(9).reshape(3, 3)
+print(np.add(arr, 1)) # == arr + 1
+print(np.multiply(arr, 3)) # == arr * 3
+```
+
+```
+arr([[1, 2, 3],
+	 [4, 5, 6],
+	 [7, 8, 9]])
+arr([[ 0,  3,  6],
+	 [ 9, 12, 15],
+	 [18, 21, 24]])
+```
+
