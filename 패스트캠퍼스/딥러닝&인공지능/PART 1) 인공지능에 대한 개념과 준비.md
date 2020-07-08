@@ -1055,9 +1055,9 @@ sort_columns : column을 알파벳 순서로 그린다.
 
 
 
-## 11.3. Matplotlib 사용하기
+## 12.3. Matplotlib 사용하기
 
-### 11.3.1. 점선 그래프 그리기
+### 12.3.1. 점선 그래프 그리기
 
 ```python
 data = np.random.randn(50).cumsum()
@@ -1087,7 +1087,7 @@ plt.show() # jupyter notebook에서는 show함수가 없어도 inline설정을 �
 
 
 
-### 11.3.2. 여러 그래프 그릴 준비 하기
+### 12.3.2. 여러 그래프 그릴 준비 하기
 
 > subplot : 빈 그래프를 그리는 함수. plt.subplot(행, 열, 순서) 여기서 행과 열의 의미는 한 번에 보여줄 그래프의 행과 열을 의미하는 것이지 그래프 하나에 대한 행과 열 정보가 아니다.
 
@@ -1105,7 +1105,7 @@ plt.show()
 
 
 
-### 11.3.3. Multi Graph 그리기
+### 12.3.3. Multi Graph 그리기
 
 ```python
 hist_data = np.random.randn(100) # 히스토그램용 데이터
@@ -1124,7 +1124,7 @@ plt.show()
 
 
 
-### 11.3.4. 그래프 선 옵션
+### 12.3.4. 그래프 선 옵션
 
 - 그래프를 그릴 때 표시되는 색이나 마커 패턴을 바꾸는 것
   - 색상 : b(파란색), g(초록색), r(빨간색), c(청록색), y(노란색), k(검은색), w(흰색)
@@ -1140,7 +1140,7 @@ plt.show()
 
 
 
-## 11.4. 그래프 사이즈 조절
+## 12.4. 그래프 사이즈 조절
 
 - plt.figure 안에 figsize를 이용하여 가로, 세로 길이 조절 가능 (inch 단위)
 
@@ -1174,7 +1174,7 @@ plt.show()
 
 
 
-## 11.5. 그래프 겹치기 + legend 달기
+## 12.5. 그래프 겹치기 + legend 달기
 
 ```python
 data = np.random.randn(30).cumsum()
@@ -1201,7 +1201,7 @@ plt.show()
 
 
 
-## 11.6. 이름 달기
+## 12.6. 이름 달기
 
 ```python
 plt.plot(np.random.randn(1000).cumsum())
@@ -1215,7 +1215,7 @@ plt.show()
 
 
 
-## 11.7. 종합
+## 12.7. 종합
 
 ```python
 plt.title('Graph')
@@ -1231,9 +1231,263 @@ plt.show()
 
 
 
-## 11.8. 그래프 저장하기
+## 12.8. 그래프 저장하기
 
 ```python
 plt.savefig('saved_graph.svg') # 현재 작업환경에 저장
 ```
+
+
+
+# 13. 인공지능 개발준비 - 시각화 기초 (이미지)
+
+## 13.1. 이미지 시각화
+
+### 13.1.1. package 불러오기
+
+```python
+import numpy as np
+
+from PIL import Image
+
+import matplotlib.pyplot as plt
+
+%matplotlib inline
+```
+
+
+
+### 13.1.2. 이미지 파일 열기
+
+```python
+path = 'source/dog.jpg'
+
+image_pil = Image.open(path)
+image = np.array(image_pil)
+print(image.shape)
+```
+
+```
+(448, 673, 3) # 이미지는 2차원이지만 RGB 때문에 3차원을 갖는다.
+```
+
+
+
+### 13.1.3. 이미지 들여다보기
+
+```python
+print(image.shape)
+print((np.min(image), np.max(image)))
+```
+
+```
+(448, 673, 3)
+(0, 255)
+```
+
+이미지를 열기 전에 shape 및 min, max를 통해서 이미지의 range 확인이 필요하다.
+
+
+
+### 13.1.4. 그래프로 시각화하기
+
+```python
+plt.hist(image.ravel(), 256, [0, 256])
+plt.show()
+```
+
+![img](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAX0AAAD4CAYAAAAAczaOAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAADh0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uMy4xLjMsIGh0dHA6Ly9tYXRwbG90bGliLm9yZy+AADFEAAARiklEQVR4nO3dbYxc1X3H8e+/dqDNQwOEJaK20zWNVZVEaoNWgJoqqkLDY1RTCSpLVeOmSH5R0pKqVTFNJaIEJKjakEZKkJzYlYOiGESosEraFBGiqi/isE4IwViuHXCDgwuOTEjaKg8m/76Ys2S8mdmd2Z3He74fabX3nnvvzDl77/zumTN37kZmIkmqw8+NuwKSpNEx9CWpIoa+JFXE0Jekihj6klSRteOuwFLOPffcnJ2dHXc1JGmq7N+//zuZOdNp2USH/uzsLPPz8+OuhiRNlYj4r27LHN6RpIoY+pJUEUNfkipi6EtSRQx9SaqIoS9JFTH0Jakihr4kVcTQl6SKNDr0Z7c/NO4qSNJEaXToS5JOZ+hLUkUMfUmqiKEvSRUx9CWpIoa+JFXE0Jekihj6klQRQ1+SKmLoS1JFDH1JqoihL0kVMfQlqSKGviRVxNCXpIoY+pJUEUNfkipi6EtSRXoK/Yj484g4EBFPRsRnI+LnI2JjROyLiMMRcW9EnFHWPbPMHynLZ9se55ZSfigirhhOkyRJ3Swb+hGxDvgzYC4z3wqsAbYAdwJ3ZeYm4EXghrLJDcCLmflm4K6yHhFxYdnuLcCVwCciYs1gmyNJWkqvwztrgV+IiLXAq4HjwDuB+8vy3cC1ZXpzmacsvywiopTvycwfZuYzwBHg4tU3QZLUq2VDPzO/Dfwd8C1aYf8SsB/4bmaeKqsdA9aV6XXAs2XbU2X9N7SXd9jmFRGxLSLmI2L+xIkTK2mTJKmLXoZ3zqbVS98I/BLwGuCqDqvmwiZdlnUrP70gc0dmzmXm3MzMzHLVkyT1oZfhnd8BnsnME5n5Y+AB4DeBs8pwD8B64LkyfQzYAFCWvx442V7eYRtJ0gj0EvrfAi6NiFeXsfnLgKeAR4HryjpbgQfL9N4yT1n+xczMUr6lXN2zEdgEfGUwzZAk9WLtcitk5r6IuB/4KnAK+BqwA3gI2BMRt5WynWWTncA9EXGEVg9/S3mcAxFxH60Txingxsx8ecDtkSQtYdnQB8jMW4FbFxU/TYerbzLzB8D1XR7nduD2PusoSRoQv5ErSRUx9CWpIoa+JFXE0Jekihj6klQRQ1+SKmLoS1JFDH1JqoihL0kVMfQlqSKGviRVxNCXpIoY+pJUEUNfkipi6EtSRQx9SaqIoS9JFTH0Jakihr4kVcTQl6SKGPqSVBFDX32b3f4Qs9sfGnc1JK2AoS9JFTH0tWL29qXpY+hLUkUMfa2KvX1puhj66pkBL00/Q199Mfil6WboS1JFDH2t2iB7/76TkIbL0Jekihj6klQRQ18Ds5qhmcW3dnCYRxoOQ1+SKmLoV2ZYPWh75tJ0MPQ1VAsnA+/MKU0GQ79CwwzfTuHe7fk8CUijt7aXlSLiLOBTwFuBBP4YOATcC8wCR4Hfz8wXIyKAfwCuBv4P+KPM/Gp5nK3A35SHvS0zdw+sJRqqlQR0L2HfaR1PBtLw9BT6tEL8XzPzuog4A3g18NfAI5l5R0RsB7YDNwNXAZvKzyXA3cAlEXEOcCswR+vEsT8i9mbmiwNtkQaiPXiP3nHNUB5X0ugtO7wTEb8IvAPYCZCZP8rM7wKbgYWe+m7g2jK9Gfh0tnwZOCsizgeuAB7OzJMl6B8Grhxoa9SXXodhxm1S6yVNo156+hcAJ4B/jIhfB/YDNwFvzMzjAJl5PCLOK+uvA55t2/5YKetWfpqI2AZsA3jTm97UV2PUu36CdFyha9hLg9fLB7lrgYuAuzPzbcD/0hrK6SY6lOUS5acXZO7IzLnMnJuZmemhehq0QYStgS1Npl5C/xhwLDP3lfn7aZ0Eni/DNpTfL7Stv6Ft+/XAc0uUa4JMalhPar2kabNs6GfmfwPPRsSvlqLLgKeAvcDWUrYVeLBM7wXeEy2XAi+VYaAvAJdHxNkRcTZweSmTRsLvCki9X73zp8BnypU7TwPvpXXCuC8ibgC+BVxf1v08rcs1j9C6ZPO9AJl5MiI+DDxW1vtQZp4cSCu0YrPbHxro1TmSJltPoZ+Zj9O61HKxyzqsm8CNXR5nF7Crnwpq+Kap9+tJSlqdXnv6mmLTFOqShsvbMDRcrYG/VLvb7wck1caevqZGvyHdS/BLtbGnr8bw6hxpeYa+ppa3bZb65/COpo4BL62cPX01jicFqTtDX1PNgJf6Y+hLUkUM/QazF9w7/1aqhaHfUIaYpE68eqdhDHtJSzH0VTVPkqqNwzvSKnjS0LQx9BvEAFqdlf79/Ltrmhj6DWHwDEY/t3Twb65pZOhLUkUM/Qawxzl+7gNNC6/ekfrQyz36/XeOmmSG/pSyZznZ/F++mlQO70g98gNeNYGhLy3BAFfTGPpSDwx/NYVj+lIH7SFv4KtJ7OlLQ+LJQpPI0JeGzH/crkli6EtSRQz9CeIlgc3jvtKkMfQnzOKQWDw0YIhIWg1DX5IqYuiPWT89d3v50839p0lg6E8JA0PSIPjlrDHpZZzeoG8eb8SmcbOnP6EMfEnDYOhPIANf0rAY+pJUEUN/DOzJ1839r3HqOfQjYk1EfC0i/rnMb4yIfRFxOCLujYgzSvmZZf5IWT7b9hi3lPJDEXHFoBvTySS9wLwHi5bj8aFh66enfxNwsG3+TuCuzNwEvAjcUMpvAF7MzDcDd5X1iIgLgS3AW4ArgU9ExJrVVV+aXt2+bW3nQMPUU+hHxHrgGuBTZT6AdwL3l1V2A9eW6c1lnrL8srL+ZmBPZv4wM58BjgAXD6IRy/EFpElmyGuUeu3pfxT4K+AnZf4NwHcz81SZPwasK9PrgGcByvKXyvqvlHfYRqqKIa9xWTb0I+LdwAuZub+9uMOqucyypbZpf75tETEfEfMnTpxYrnqSpD700tN/O/C7EXEU2ENrWOejwFkRsfCN3vXAc2X6GLABoCx/PXCyvbzDNq/IzB2ZOZeZczMzM303aFLZs5M0CZYN/cy8JTPXZ+YsrQ9iv5iZfwA8ClxXVtsKPFim95Z5yvIvZmaW8i3l6p6NwCbgKwNridQwjvVrGFZz752bgT0RcRvwNWBnKd8J3BMRR2j18LcAZOaBiLgPeAo4BdyYmS+v4vklSX3qK/Qz80vAl8r003S4+iYzfwBc32X724Hb+63ktLO3JmlS+I1cacLZadAgGfpD5gtW0iQx9CWpIoa+JFXE0JemgMOEGhRDX5IqYuhLUkUMfUmqiKE/RI7DapAW33vf40srsZrbMEgaMYNeq2VPX5pingTUL0N/CHzrrVHyWFM/DH2pAbr9v11psWpC3xeBauC7TC2nmtCXamP4qxNDX2owe/5azNCXtGqeXKaHoS/pNAZ4sxn6A+aLRZNoGEHusT6dDH2pIgtB3S2wlwryTicO3xVMn6pC34NTWplOYa/pVFXoS/pZ/Qa4gT/dDH2pMoZ23Qx9SV3H69t/9/o4mmyG/gB5wGua9PIh7EqOaV8Hk83Ql6SKGPqSVBFDX5IqYuhLGjjH9SdXdf8jd+FgPHrHNUN5XEkt7a+JQb/etHL29AfAwJc0LQx9SUPnPXomR7Wh70EoqUbVhr6k0bOjNX7Vh74HoaSaVHf1TierucrAk4akaVJ9T1/SaNlRGi9DfxEPSGl0fL2N3rKhHxEbIuLRiDgYEQci4qZSfk5EPBwRh8vvs0t5RMTHIuJIRDwRERe1PdbWsv7hiNg6vGatjgeiNFxePTc+vfT0TwF/kZm/BlwK3BgRFwLbgUcycxPwSJkHuArYVH62AXdD6yQB3ApcAlwM3LpwopBUL8N/tJb9IDczjwPHy/T3I+IgsA7YDPx2WW038CXg5lL+6cxM4MsRcVZEnF/WfTgzTwJExMPAlcBnB9iekfFAlTSN+hrTj4hZ4G3APuCN5YSwcGI4r6y2Dni2bbNjpaxb+eLn2BYR8xExf+LEiX6qJ0laRs+hHxGvBT4HvD8zv7fUqh3Kcony0wsyd2TmXGbOzczM9Fo9SVIPegr9iHgVrcD/TGY+UIqfL8M2lN8vlPJjwIa2zdcDzy1RPpGWGr5xaEcaLF9To9PL1TsB7AQOZuZH2hbtBRauwNkKPNhW/p5yFc+lwEtl+OcLwOURcXb5APfyUiZJGpFeevpvB/4QeGdEPF5+rgbuAN4VEYeBd5V5gM8DTwNHgE8CfwJQPsD9MPBY+fnQwoe6k8rehzQ6vt5Go5erd/6DzuPxAJd1WD+BG7s81i5gVz8VlCQNjt/I7ZO9EUnTzNDvg4EvDZff1B0+Q38ZHoTS6Pm6Gx5Dv0cegJKawNCXpIoY+pImVqdhnoV5332vjKEvSRWJ1mX1k2lubi7n5+dXvL09Aake/f6r0yaLiP2ZOddpmT19SY1gJ683hr4kVcTQl6SKGPqSVBFDX1JjOK6/PENfUqN4C4elGfqSVBFDX1Ij2ePvzNCXpIoY+pJUEUNfkipi6EtqNMf1T2foS2o8g/+nDH1JqoihL6kK9vZbDH1JqoihL6ka9vYNfUmVqT34DX1JqoihL0kVMfQlVavGoZ61466AJI1ajWG/wJ6+pKrVdgtme/qSxM/2/o/ecc0rZUfvuGYcVRoKQ1+SOmg/CXQ6IUwrh3ckaQWmdUjInr4k9Wkh8LsF/yS/E7CnL0kDttTQ0LjZ05ekIZi0sF8w8p5+RFwZEYci4khEbB/180vSqPV7WegwTxgj7elHxBrg48C7gGPAYxGxNzOfGmU9JGkcOoX5qMf/Rz28czFwJDOfBoiIPcBmwNCXVKVRDwONOvTXAc+2zR8DLmlfISK2AdvK7P9ExKFVPN+5wHdWsf00sa3NVVN7a2orLNHeuHNVj/vL3RaMOvSjQ1meNpO5A9gxkCeLmM/MuUE81qSzrc1VU3traiuMp72j/iD3GLChbX498NyI6yBJ1Rp16D8GbIqIjRFxBrAF2DviOkhStUY6vJOZpyLifcAXgDXArsw8MMSnHMgw0ZSwrc1VU3traiuMob2RmcuvJUlqBG/DIEkVMfQlqSKNDP2m3+ohIo5GxDci4vGImC9l50TEwxFxuPw+e9z1XKmI2BURL0TEk21lHdsXLR8r+/qJiLhofDVfmS7t/WBEfLvs48cj4uq2ZbeU9h6KiCvGU+uViYgNEfFoRByMiAMRcVMpb9z+XaKt4923mdmoH1ofEH8TuAA4A/g6cOG46zXgNh4Fzl1U9rfA9jK9Hbhz3PVcRfveAVwEPLlc+4CrgX+h9R2QS4F9467/gNr7QeAvO6x7YTmmzwQ2lmN9zbjb0EdbzwcuKtOvA/6ztKlx+3eJto513zaxp//KrR4y80fAwq0emm4zsLtM7wauHWNdViUz/x04uai4W/s2A5/Oli8DZ0XE+aOp6WB0aW83m4E9mfnDzHwGOELrmJ8KmXk8M79apr8PHKT1Tf3G7d8l2trNSPZtE0O/060elvpDT6ME/i0i9pfbVgC8MTOPQ+tgA84bW+2Go1v7mry/31eGNHa1Ddc1pr0RMQu8DdhHw/fvorbCGPdtE0N/2Vs9NMDbM/Mi4Crgxoh4x7grNEZN3d93A78C/AZwHPj7Ut6I9kbEa4HPAe/PzO8ttWqHsqlqb4e2jnXfNjH0G3+rh8x8rvx+AfgnWm8Bn19421t+vzC+Gg5Ft/Y1cn9n5vOZ+XJm/gT4JD99mz/17Y2IV9EKwc9k5gOluJH7t1Nbx71vmxj6jb7VQ0S8JiJetzANXA48SauNW8tqW4EHx1PDoenWvr3Ae8pVHpcCLy0ME0yzRePWv0drH0OrvVsi4syI2AhsAr4y6vqtVEQEsBM4mJkfaVvUuP3bra1j37fj/oR7SJ+aX03rk/JvAh8Yd30G3LYLaH3C/3XgwEL7gDcAjwCHy+9zxl3XVbTxs7Te9v6YVu/nhm7to/WW+ONlX38DmBt3/QfU3ntKe54oYXB+2/ofKO09BFw17vr32dbfojVk8QTwePm5uon7d4m2jnXfehsGSapIE4d3JEldGPqSVBFDX5IqYuhLUkUMfUmqiKEvSRUx9CWpIv8PyC7W0q+YCtcAAAAASUVORK5CYII=)
+
+
+
+### 13.1.5. 그림 나타내기
+
+```python
+plt.imshow(image)
+plt.show()
+```
+
+![image-20200707203152068](image/image-20200707203152068.png)
+
+
+
+### 13.1.6. 이미지 흑백으로 열기
+
+```python
+image_pil = Image.open(path).convert("L")
+image_bw = np.array(image_pil)
+print(image_bw.shape)
+```
+
+```
+(448, 673) # (448, 673, 3)에서 차원이 낮아짐
+```
+
+
+
+### 13.1.7. 흑백 이미지 열기
+
+```python
+plt.imshow(image_bw, 'gray')
+plt.show()
+```
+
+![image-20200707203549668](image/image-20200707203549668.png)
+
+
+
+### 13.1.8. 다른 색상으로 cmap 표현하기
+
+#### 13.1.8.1. gray scale
+
+```python
+print(image_bw.shape)
+plt.imshow(image_bw, 'gray')
+plt.show()
+```
+
+
+
+#### 13.1.8.2. RdBu
+
+```python
+plt.imshow(image_bw, 'RdBu')
+plt.show()
+```
+
+![image-20200707203827398](image/image-20200707203827398.png)
+
+
+
+#### 13.1.8.3. jet
+
+```python
+plt.imshow(image_bw, 'jet')
+plt.show()
+```
+
+![image-20200707203935330](image/image-20200707203935330.png)
+
+
+
+### 13.1.9. Colorbar 추가하기
+
+```python
+plt.imshow(image_bw, 'jet')
+plt.colorbar()
+plt.show()
+```
+
+![image-20200707204055914](image/image-20200707204055914.png)
+
+
+
+### 13.1.10. 이미지 설정
+
+이미지 보기 사이즈 조절
+
+```python
+plt.figure(figsize=(10, 10))
+plt.imshow(image)
+plt.show()
+```
+
+![image-20200707204226998](image/image-20200707204226998.png)
+
+
+
+### 13.1.11. 이미지에 제목 추가
+
+```python
+plt.title('Dog')
+plt.imshow(image)
+plt.show()
+```
+
+![image-20200707204327454](image/image-20200707204327454.png)
+
+
+
+## 13.2. 두 번째 이미지 열기
+
+```python
+cat_path = 'source/cat.jpg'
+
+cat_pil = Image.open(cat_path)
+cat_image = np.array(cat_pil)
+plt.imshow(cat_image)
+plt.show()
+```
+
+![image-20200707204534678](image/image-20200707204534678.png)
+
+
+
+### 13.2.1. 두 번째 이미지를 첫 번째 이미지 모양에 맞추기
+
+```python
+print(cat_image.shape) # 강아지 이미지는 (448, 673, 3)
+print(image.shape)
+```
+
+```
+(400, 600, 3)
+(448, 673, 3)
+```
+
+
+
+### 13.2.3. 두 번째 이미지 합치기 위한 준비
+
+```python
+import cv2
+
+dog_image = cv2.resize(image, (673, 448))
+print(dog_image.shape)
+```
+
+```
+(448, 673, 3)
+```
+
+
+
+### 13.2.3.1. OpenCV 설치하기
+
+Windows PowerShell에 `pip install opencv-python` 입력
+
+
+
+### 13.2.4. Image 합치기
+
+```python
+plt.imshow(dog_image)
+plt.imshow(cat_image)
+plt.show() # 이렇게만 작성시 나중에 불러온 고양이 이미지가 덮어씌어져 고양이 이미지만 보인다.
+```
+
+```python
+plt.imshow(dog_image)
+plt.imshow(cat_image, alpha=0.5)
+plt.show()
+```
+
+![image-20200707205553316](image/image-20200707205553316.png)
+
+
+
+## 13.3. Subplot
+
+```python
+plt.figure(figsize=(10, 10))
+plt.subplot(221) # == plt.subplot(2, 2, 1)
+plt.imshow(image)
+plt.subplot(222)
+plt.imshow(image_bw, 'gray')
+plt.subplot(223)
+plt.imshow(cat_image)
+plt.show()
+```
+
+![image-20200707205750694](image/image-20200707205750694.png)
 
