@@ -361,17 +361,17 @@ matplotlib로 이미지 시각화 할 때는 gray scale의 이미지는 3번째 
   
 ```
   (28, 28)
-  ```
+```
+
   
-  
-  
+
   ```python
   disp = new_train_x[0, :, :, 0]
   
   plt.imshow(disp, 'gray')
   plt.show()
   ```
-  
+
 - 다시 시각화
 
   ```python
@@ -385,7 +385,7 @@ matplotlib로 이미지 시각화 할 때는 gray scale의 이미지는 3번째 
 
 Label 하나를 열어서 Image와 비교하여 제대로 들어갔는지. 어떤 식으로 저장되어 있는지 확인
 
-- label 하마나 뽑가
+- label 하나만 뽑기
 
   ```python
   train_y.shape
