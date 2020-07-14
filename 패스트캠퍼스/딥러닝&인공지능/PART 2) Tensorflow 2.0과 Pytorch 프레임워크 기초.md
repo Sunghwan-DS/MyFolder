@@ -372,7 +372,6 @@ matplotlib로 이미지 시각화 할 때는 gray scale의 이미지는 3번째 
   plt.show()
   ```
   
-  
 - 다시 시각화
 
   ```python
@@ -410,6 +409,55 @@ Label 하나를 열어서 Image와 비교하여 제대로 들어갔는지. 어�
 
   ```python
   plt.title(train_y[0])
+  plt.imshow(train_x[0], 'gray')
+  plt.show()
+  ```
+
+
+
+
+## 3.6. OneHot Encoding
+
+컴퓨터가 이해할 수 있는 형태로 변환해서 Label을 주도록 한다.
+
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 0] == 1이라는 클래스
+
+[0, 0, 0, 0, 0, 1, 0, 0, 0, 0] == 5하는 클래스
+
+- tensorflow.keras.utils.to_categorical
+
+  ```python
+  from tensorflow.keras.utils import to_categorical
+  ```
+
+- 1을 예시로 one hot encoding
+
+  ```python
+  to_categorical(1, 5) # 5개중 1번째, 0번째부터 존재
+  ```
+
+  ```
+  array(p0., 1., 0., 0., 0.], dtype=float32)
+  ```
+
+- label 확인해서 to_categorical 사용
+
+  ```python
+  label = train_y[0]
+  print(label)
+  label_onehot = to_categorical(label, num_classes=10)
+  print(label_onehot)
+  ```
+
+  ```
+  5
+  array([0., 0., 0., 0., 0., 1., 0., 0., 0., 0.], dtype=float32)
+  ```
+
+- onehot encoding으로 바꾼 것과 이미지 확인
+
+  ```python
+  plt.title(label_onehoy)
   plt.imshow(train_x[0], 'gray')
   plt.show()
   ```
