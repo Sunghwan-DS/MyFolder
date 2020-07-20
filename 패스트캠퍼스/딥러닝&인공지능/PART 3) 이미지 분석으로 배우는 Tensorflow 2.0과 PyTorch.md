@@ -95,4 +95,339 @@ len(data_paths)
 
 
 
-## 2.1. 데이터 분석 (MNIST)
+# 3. 이미지 분석
+
+## 3.1. 데이터 분석 (MNIST)
+
+```python
+os.listdir('dataset/mnist_png/training/')
+len(os.listdir('dataset/mnist_png/training/'))
+label_nums = os.listdir('dataset/mnist_png/training/')
+label_nums
+
+# Label 0의 데이터 갯수 확인
+len(label_nums)
+```
+
+
+
+### 3.1.1. 데이터 별 갯수 비교
+
+```python
+nums_dataset = []
+
+for lbl_n in label_nums:
+    data_per_class = os.listdir('dataset/mnist_png/training/' + lbl_n)
+    nums_dataset.append(len(data_per_class))
+    
+print(label_nums)
+print(nums_dataset)
+```
+
+```
+['0', '1', '2', '3', '4', '5', '6' , '7', '8', '9']
+[5923, 6742, 5958, 6131, 5842, 5421, 5918, 6265, 5851, 5949]
+```
+
+
+
+```python
+plt.bar(label)nums, nums_dataset)
+plt.title('Number of Dataset per class')
+plt.show()
+```
+
+
+
+### 3.2. Pillow로 열기
+
+```python
+image_path = Image.ioen(path)
+image = np.array(image_pil)
+
+print(image.shape)
+```
+
+```
+(28, 28)
+```
+
+
+
+```python
+plt.imshow(image, 'gray')
+plt.show()
+```
+
+
+
+## 3.3. TensorFlow로 열기
+
+```python
+gfile = tf.io.read_file(path)
+image = tf.io.decode_image(gfile)
+
+print(image.shape)
+```
+
+```
+TensorShape([28, 28, 1]) # 체널이 3개이다. 즉, 3차원.
+```
+
+
+
+```python
+# plt.imshow(image, 'gray') 는 체널이 하나 더 많아서 실행이 안된다.
+plt.imshow(image[:, :, 0], 'gray')
+plt.show()
+```
+
+
+
+## 3.4. Label 얻기
+
+```python
+print(path)
+label = path.split('\\')[-2]
+print(int(label)
+```
+
+```
+'dataset/mnist_png/training\\0\\1.png'
+0
+```
+
+
+
+```python
+def get_label(path):
+    class_name = path.split('\\')[-2]
+    label = int(class_name)
+    return label
+```
+
+```python
+path, get_label(path)
+```
+
+```
+('dataset/mnist_png/training\\0\\1.png', 0)
+```
+
+
+
+## 3.5. 데이터 이미지 사이즈 알기
+
+```python
+from tqdm import tqdm_notebook
+```
+
+```python
+heights = []
+widths = []
+
+for path in tqdm_notebook(data_paths):
+    img_pil = Image.open(path)
+    image = np.array(img_pil)
+    h, w = image.shape
+    
+    heights.append(h)
+    widths.append(w)
+```
+
+
+
+```python
+np.unique(heights)
+np.unique(widths)
+```
+
+```
+28
+28
+```
+
+
+
+```python
+plt.figure(figsize=(20, 10))
+
+plt.subplot(121)
+plt.hist(heights)
+plt.title('Heights')
+plt.axvline(np.mean(heights), color='r', linestyle='dashed', linewidth=2)
+
+plt.subplit(122)
+plt.hist(widths)
+plt.title('Widths')
+
+plt.show()
+```
+
+
+
+# 4. 데이터의 학습에 대한 이해
+
+```python
+import os
+from glob import glob
+
+import numpy as np
+import tensorflow as tf
+
+import matplotlib.pyplot as plt
+%matplotlib inline
+```
+
+```python
+data_paths = glob('dataset/cifar/train/*.png')
+os.listdir('dataset/cifar/train/')[0]
+```
+
+
+
+```python
+def read_image(path):
+    gfile = tf.io.read_file(path)
+    image = tf.io.decode_image(gfile, dtype=tf.float32)
+    return image
+```
+
+```python
+for i in range(8):
+    plt.imshow(read_image(data_paths[i]))
+    plt.show
+```
+
+
+
+## 4.1. Batch
+
+![image-20200720223827004](image/image-20200720223827004.png)
+
+​	
+
+### 4.1.1. Images in List
+
+```python
+batch_images = []
+
+for path in data_paths[:8]:
+    image = read_image(path)
+    batch_images.append(image)
+```
+
+```python
+np.array(batch_images).shape # 단, 이미지 크기가 다 똑같아야한다.
+# (8, 32, 32, 3)
+```
+
+
+
+### 4.1.2. Batch Size
+
+![image-20200720224232375](image/image-20200720224232375.png)
+
+(batch_size, height, width, channel)
+
+```python
+def make_batch(batch_paths):
+    batch_images = []
+    
+    for path in batch_paths:
+        image = read_image(path)
+        batch_images.append(image)
+        
+    retrun tf.convert_to_tensor(batch_images)
+```
+
+
+
+```python
+batch_size = 16
+
+for step in range(4):
+    batch_images = make_batch(data_paths[step * batch_size: (step + 1) * batch_size])
+    
+    plt.imshow(batch_images[0])
+    plt.show()
+```
+
+
+
+
+
+
+
+# 19. save and load model - h5
+
+## 19.1. Saving Model
+
+```python
+save_path = 'my_model.h5'
+model.save(save_path, include_optimizer=True)
+```
+
+
+
+```python
+model = tf.keras.models.load_model('my_model.h5')
+```
+
+
+
+## 19.2. Save Model - 2
+
+```python
+model.save_weights('model_weights.h5')
+```
+
+```python
+with open('model_architecture.json', 'w') as f:
+    f.write(model.to_json())
+```
+
+
+
+```python
+from tensorflow.keras.models import model_from_json
+```
+
+```python
+with open('model_architecture.json', 'r') as f:
+    model = model_from_json(f.read())
+```
+
+```python
+model.load_weights('model_weights.h5')
+```
+
+> model.load_weights('checkpoints') 이런 식으로 checkpoint가 담긴 폴더를 지정해주면 checkpoint도 불러올 수 있다.
+
+
+
+## 19.3. H5 모델 들여다보기
+
+```python
+import h5py
+
+model_file = h5py.File('my_moel.h5', 'r+')
+model_file.keys()
+```
+
+```python
+model_file['model_weights'].keys()
+```
+
+```python
+model_file['model_weights']['conv2d']['conv2d'].keys()
+```
+
+```python
+model_file['model_weights']['conv2d']['conv2d'].['kernel:0']
+```
+
+```python
+weight = np.array(model_file['model_weights']['conv2d']['conv2d'].['kernel:0'])
+```
+
