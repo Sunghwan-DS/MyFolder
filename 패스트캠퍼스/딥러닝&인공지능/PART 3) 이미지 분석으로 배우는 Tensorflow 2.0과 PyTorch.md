@@ -355,6 +355,33 @@ for step in range(4):
 
 
 
+# 5. fit_generator - Image Transformation
+
+```python
+import os
+from glob import glob
+
+import tensorflow as tf
+import numpy as np
+
+import matplotlib.pyplot as plt
+%matplotlib inline
+```
+
+```python
+data_paths = glob('dataset/mnist_png/training/0/*.png')
+```
+
+```python
+
+```
+
+
+
+
+
+
+
 
 
 
