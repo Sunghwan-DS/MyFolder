@@ -378,6 +378,8 @@ data_paths = glob('dataset/mnist_png/training/0/*.png')
 
 
 
+## 5.1. Load Image
+
 
 
 
