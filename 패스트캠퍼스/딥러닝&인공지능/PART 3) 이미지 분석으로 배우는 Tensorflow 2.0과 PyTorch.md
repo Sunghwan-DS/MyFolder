@@ -380,15 +380,77 @@ data_paths = glob('dataset/mnist_png/training/0/*.png')
 
 ## 5.1. Load Image
 
+```python
+gfile = tf.io.read_file(path)
+image = tf.io.decode_image(gfile)
+image.shape
+```
+
+```python
+plt.imshow(image[:, :, 0], 'gray')
+plt.show()
+```
 
 
-## 5.2.
+
+## 5.2. Set Data Generator
+
+```python
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+```
+
+```python
+datagen = ImageDataGenerator(
+rotation_range=20,
+width_shift_range=0.2,
+height_shift_range=0.2,
+horizontal_flip=True
+)
+```
 
 
 
-## 5.3.
+```python
+inputs = image[tf.newaxis, ...]
+inputs.shape
+```
+
+```python
+image = next(iter(datagen.flow(inputs)))
+image.shape
+```
 
 
+
+```python
+plt.subplot(121)
+plt.title('Original')
+plt.imshow(np.squeeze(inputs), 'gray')
+
+plt.subplot(122)
+plt.title('Transformed Image')
+plt.imshow(np.squeeze(image), 'gray')
+plt.show()
+```
+
+
+
+
+
+## 5.3. Transformation
+
+- width_shift_range
+- height_shift_range
+- brightness_range
+- zoom_range
+- horizontal_flip
+- vertical_flip
+- rescale
+- preprocessing_function
+
+
+
+## 5.4. Rescale시 주의사항
 
 
 
