@@ -448,9 +448,73 @@ plt.show()
 - rescale
 - preprocessing_function
 
+```python
+datagen =  ImageDataGenerator(
+width_shift_range=0.3)
+
+outputs = next(iter(datagen.flow(inputs)))
+
+plt.subplot(121)
+plt.title("Original Image")
+plt.imshow(np.squeeze(inputs), 'gray')
+
+plt.subplot(122)
+plt.title('Transformed Image')
+plt.imshow(np.squeeze(image), 'gray')
+plt.show()
+```
+
+
+
 
 
 ## 5.4. Rescale시 주의사항
+
+
+
+
+
+
+
+
+
+# 7. flow_from_dataframe - dataframe 만들기
+
+```python
+import cs
+from glob import glob
+
+import numpy as np
+import pandas as pd
+
+import matplotlib.pyplot as plt
+
+%matplotlib inline
+```
+
+
+
+## 7.1. 파이썬 문자열 관련 함수 사용
+
+- os
+- glob
+- replace
+- split
+- join
+- strip
+
+
+
+```python
+os.listdir('dataset/cifar/')
+```
+
+```python
+train_paths = glob('dataset/cifar/train/*.png')
+test_paths = glob('dataset/cifar/test/*.png')
+```
+
+
 
 
 
