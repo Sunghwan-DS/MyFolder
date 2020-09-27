@@ -478,6 +478,10 @@ plt.show()
 
 
 
+## 5.6.
+
+
+
 
 
 # 7. flow_from_dataframe - dataframe 만들기
